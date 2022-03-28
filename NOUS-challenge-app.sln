@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NOUS-challenge-app", "NOUS-challenge-app\NOUS-challenge-app.csproj", "{1BFB7917-3CBA-4F0D-AF4A-ECF4093B1DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NOUS-challenge-app.API", "NOUS-challenge-app\NOUS-challenge-app.API.csproj", "{1BFB7917-3CBA-4F0D-AF4A-ECF4093B1DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOUS-challenge-app.DAL", "NOUS-challenge-app.DAL\NOUS-challenge-app.DAL.csproj", "{9759CACA-7D8F-41C5-B786-CF70D21BA305}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NOUS-challenge-app.DAL", "NOUS-challenge-app.DAL\NOUS-challenge-app.DAL.csproj", "{9759CACA-7D8F-41C5-B786-CF70D21BA305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NOUS-challenge-app.BLL", "NOUS-challenge-app.BLL\NOUS-challenge-app.BLL.csproj", "{439350CF-2276-4968-8D14-C496338EB13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9759CACA-7D8F-41C5-B786-CF70D21BA305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9759CACA-7D8F-41C5-B786-CF70D21BA305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9759CACA-7D8F-41C5-B786-CF70D21BA305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439350CF-2276-4968-8D14-C496338EB13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439350CF-2276-4968-8D14-C496338EB13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439350CF-2276-4968-8D14-C496338EB13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439350CF-2276-4968-8D14-C496338EB13A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
