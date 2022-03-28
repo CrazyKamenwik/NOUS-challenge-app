@@ -9,11 +9,11 @@ namespace NOUS_challenge_app.BLL.Requests.CleaningPlan
         public string Description { get; set; }
         public int CustomerId { get; set; }
 
-        public CleaningPlanCreateRequest(int customerId, string description, string title)
+        public CleaningPlanCreateRequest(CleaningPlanModel model)
         {
-            CustomerId = customerId;
-            Description = description;
-            Title = title;
+            CustomerId = model.CustomerId;
+            Description = model.Description;
+            Title = model.Title;
         }
     }
 }
