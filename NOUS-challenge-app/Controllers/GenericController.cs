@@ -36,7 +36,7 @@ namespace NOUS_challenge_app.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getbyid/{id:Guid}")]
+        [HttpGet("getById/{id:Guid}")]
         //[Route("api/get/{id:Guid}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
@@ -52,7 +52,7 @@ namespace NOUS_challenge_app.Controllers
             return Ok(result);
         }
 
-        [HttpGet("getbycustomerid/{id:int}")]
+        [HttpGet("getByCustomerId/{id:int}")]
         //[Route("api/getByCustomerId/{id:int}")]
         public async Task<IActionResult> GetByCustomerIdAsync(int id)
         {

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using NOUS_challenge_app.BLL.Interfaces;
+using System.Collections.Generic;
 
 namespace NOUS_challenge_app.BLL.Queries
 {
-    public class GenericGetByCustomerIdQuery<TEntity> : IRequest<List<TEntity>> where TEntity : IModel
+    public class GenericGetByCustomerIdQuery<TEntity> : IRequest<IEnumerable<TEntity>> where TEntity : IModel
     {
         public int CustomerId { get; set; }
 

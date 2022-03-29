@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NOUS_challenge_app.BLL.Mapper;
 using NOUS_challenge_app.DAL.DI;
-using AutoMapper;
-using MediatR;
 
 namespace NOUS_challenge_app.BLL.DI
 {
@@ -13,7 +11,7 @@ namespace NOUS_challenge_app.BLL.DI
         {
             services.AddDataRegister();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.AddMediatR(typeof(BusinessLogicRegister));
+            services.AddMediatR(typeof(BusinessLogicRegister).Assembly);
 
             //var mapperConfig = new MapperConfiguration(mc =>
             //{

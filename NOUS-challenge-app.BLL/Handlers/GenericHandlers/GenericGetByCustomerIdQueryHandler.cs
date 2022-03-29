@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace NOUS_challenge_app.BLL.Handlers.GenericHandlers
 {
-    public class GenericGetByCustomerIdQueryHandler : IRequestHandler<GenericGetByCustomerIdQuery<CleaningPlanModel>, IEnumerable<CleaningPlanModel>>
+    public class GenericGetByCustomerIdQueryHandler : IRequestHandler<GenericGetByCustomerIdQuery<CleaningPlanModel>,
+        IEnumerable<CleaningPlanModel>>
     {
-
         private readonly IGenericRepository<CleaningPlanEntity> _repository;
         private readonly IMapper _mapper;
 
@@ -29,6 +29,5 @@ namespace NOUS_challenge_app.BLL.Handlers.GenericHandlers
             var cleaningPlanModel = _mapper.Map<IEnumerable<CleaningPlanModel>>(cleaningPlanEntity);
             return cleaningPlanModel;
         }
-
     }
 }

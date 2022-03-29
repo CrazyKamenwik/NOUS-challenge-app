@@ -8,7 +8,7 @@ namespace NOUS_challenge_app.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<CleaningPlanViewModel, CleaningPlanModel>().ReverseMap();
+            CreateMap<CleaningPlanModel, CleaningPlanViewModel>().ReverseMap();
         }
     }
 }

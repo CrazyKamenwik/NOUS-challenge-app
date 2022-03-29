@@ -45,7 +45,6 @@ namespace NOUS_challenge_app.DAL.Repositories
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             AppDbContext.Entry(entity).State = EntityState.Modified;
-            await AppDbContext.SaveChangesAsync();
             return entity;
         }
 

@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace NOUS_challenge_app.BLL.Handlers.GenericHandlers
 {
-    public class GenericGetAllQueryHandler : IRequestHandler<GenericGetAllQuery<CleaningPlanModel>, IEnumerable<CleaningPlanModel>>
+    public class
+        GenericGetAllQueryHandler : IRequestHandler<GenericGetAllQuery<CleaningPlanModel>,
+            IEnumerable<CleaningPlanModel>>
     {
         private readonly IGenericRepository<CleaningPlanEntity> _repository;
         private readonly IMapper _mapper;

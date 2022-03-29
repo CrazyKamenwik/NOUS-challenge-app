@@ -1,4 +1,3 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NOUS_challenge_app.BLL.DI;
 using NOUS_challenge_app.Mapper;
-using System;
 
 
 namespace NOUS_challenge_app
@@ -25,10 +23,7 @@ namespace NOUS_challenge_app
             services.AddControllers();
 
             services.AddSwaggerGen(
-                c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-            }
+                c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" }); }
             );
 
             services.AddMediatR(typeof(Startup).Assembly);
@@ -42,8 +37,6 @@ namespace NOUS_challenge_app
             //services.AddSingleton(mapper);
 
             services.AddBusinessLogic();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,22 +48,20 @@ namespace NOUS_challenge_app
                 app.UseSwaggerUI();
                 app.UseExceptionHandler("/error-development");
             }
+
             app.UseSwagger();
 
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                options.RoutePrefix = String.Empty;
+                options.RoutePrefix = string.Empty;
             });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

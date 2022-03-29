@@ -1,24 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using NOUS_challenge_app.BLL.Models;
 using NOUS_challenge_app.BLL.Requests.CleaningPlan;
-using NOUS_challenge_app.DAL;
 using NOUS_challenge_app.DAL.Entities;
 using NOUS_challenge_app.DAL.Interfaces;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NOUS_challenge_app.BLL.Handlers.CleaningPlanHandlers
 {
-    public class CleaningPlanRequestHandler<TModel> :
+    public class CleaningPlanRequestHandler :
         IRequestHandler<CleaningPlanCreateRequest, CleaningPlanModel>,
         IRequestHandler<CleaningPlanUpdateRequest, CleaningPlanModel>
     {
         private readonly IGenericRepository<CleaningPlanEntity> _repository;
         private readonly IMapper _mapper;
 
-        public CleaningPlanRequestHandler(AppDbContext appDbContext, IGenericRepository<CleaningPlanEntity> repository,
+        public CleaningPlanRequestHandler(IGenericRepository<CleaningPlanEntity> repository,
             IMapper mapper)
         {
             _repository = repository;
@@ -28,7 +27,7 @@ namespace NOUS_challenge_app.BLL.Handlers.CleaningPlanHandlers
         public async Task<CleaningPlanModel> Handle(CleaningPlanCreateRequest request,
             CancellationToken cancellationToken)
         {
-            var cleaningPlan = new CleaningPlanEntity()
+            var cleaningPlan = new CleaningPlanEntity
             {
                 Title = request.Title,
                 CreatedAt = DateTime.Now,
@@ -43,8 +42,9 @@ namespace NOUS_challenge_app.BLL.Handlers.CleaningPlanHandlers
         public async Task<CleaningPlanModel> Handle(CleaningPlanUpdateRequest request,
             CancellationToken cancellationToken)
         {
-            var cleaningPlan = new CleaningPlanEntity()
+            var cleaningPlan = new CleaningPlanEntity
             {
+                Id = request.Id,
                 Title = request.Title,
                 Description = request.Description
             };
