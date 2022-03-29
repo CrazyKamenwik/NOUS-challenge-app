@@ -3,14 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using NOUS_challenge_app.BLL.Mapper;
 using NOUS_challenge_app.DAL.DI;
 using AutoMapper;
+using MediatR;
 
 namespace NOUS_challenge_app.BLL.DI
 {
     public static class BusinessLogicRegister
     {
-        public static void AddBusinessLogic(IServiceCollection services, IConfiguration config)
+        public static void AddBusinessLogic(this IServiceCollection services)
         {
-            services.AddDataRegister(config);
+            services.AddDataRegister();
             
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -20,6 +21,7 @@ namespace NOUS_challenge_app.BLL.DI
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            //services.AddMediatR();
         }
     }
 }

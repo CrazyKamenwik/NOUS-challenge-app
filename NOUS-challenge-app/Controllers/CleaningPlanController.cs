@@ -17,14 +17,14 @@ namespace NOUS_challenge_app.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CleaningPlanController(IMediator mediator, IMapper mapper) : base(mediator, mapper)
+        public CleaningPlanController(IMediator mediator, IMapper mapper) : base(mediator)
         {
             _mapper = mapper;
             _mediator = mediator;
         }
 
         [HttpPost]
-        [Route("/createCleaningPlan")]
+        [Route("/create")]
         public async Task<CleaningPlanViewModel> CreateCleaningPlan([FromBody] CleaningPlanModel model)
         {
             var command = new CleaningPlanCreateRequest(model);
@@ -39,7 +39,7 @@ namespace NOUS_challenge_app.Controllers
         }
 
         [HttpPut]
-        [Route("/editCleaningPlan")]
+        [Route("/edit")]
         public async Task<CleaningPlanViewModel> EditCleaningPlan([FromBody] CleaningPlanModel model)
         {
             var command = new CleaningPlanUpdateRequest(model);

@@ -8,9 +8,10 @@ namespace NOUS_challenge_app.DAL.DI
 {
     public static class DataAccessRegister
     {
-        public static void AddDataRegister(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDataRegister(this IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("CleaningPlan"));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         }
     }

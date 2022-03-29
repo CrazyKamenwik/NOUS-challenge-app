@@ -1,12 +1,14 @@
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using NOUS_challenge_app.Mapper;
 using NOUS_challenge_app.BLL.DI;
+using NOUS_challenge_app.Mapper;
 using System;
+
 
 namespace NOUS_challenge_app
 {
@@ -20,7 +22,7 @@ namespace NOUS_challenge_app
 
             services.AddLogging();
 
-            services.AddBusinessLogic();
+            services.AddControllers();
 
             services.AddSwaggerGen(
                 c =>
@@ -28,8 +30,8 @@ namespace NOUS_challenge_app
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             }
             );
-            services.AddControllers();
 
+            services.AddMediatR(typeof(Startup).Assembly);
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -38,6 +40,8 @@ namespace NOUS_challenge_app
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddBusinessLogic();
 
 
         }
