@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +12,16 @@ namespace NOUS_challenge_app.BLL.Models
     {
         public Guid Id { get; set; }
 
-        //[Required]
-        //[MaxLength(256, ErrorMessage = "Title length must be less than 257 characters long.")]
+        [Required]
+        [MaxLength(256, ErrorMessage = "Title length must be less than 257 characters long.")]
         public string Title { get; set; }
 
-        //[Required]
+        [Required]
         public int CustomerId { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
-        //[MaxLength(512, ErrorMessage = "Description length must be less than 513 characters long.")]
+        [MaxLength(512, ErrorMessage = "Description length must be less than 513 characters long.")]
         public string Description { get; set; }
     }
 }
