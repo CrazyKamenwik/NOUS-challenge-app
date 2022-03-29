@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NOUS_challenge_app.DAL.Interfaces;
 using NOUS_challenge_app.DAL.Repositories;

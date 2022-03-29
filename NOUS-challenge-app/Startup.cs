@@ -32,14 +32,14 @@ namespace NOUS_challenge_app
             );
 
             services.AddMediatR(typeof(Startup).Assembly);
+            services.AddAutoMapper(typeof(MappingProfile));
+            //var mapperConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new MappingProfile());
+            //});
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            //IMapper mapper = mapperConfig.CreateMapper();
+            //services.AddSingleton(mapper);
 
             services.AddBusinessLogic();
 

@@ -12,16 +12,16 @@ namespace NOUS_challenge_app.BLL.DI
         public static void AddBusinessLogic(this IServiceCollection services)
         {
             services.AddDataRegister();
-            
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
+            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddMediatR(typeof(BusinessLogicRegister));
 
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            //var mapperConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new MappingProfile());
+            //});
 
-            //services.AddMediatR();
+            //IMapper mapper = mapperConfig.CreateMapper();
+            //services.AddSingleton(mapper);
         }
     }
 }
