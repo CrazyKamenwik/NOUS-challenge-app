@@ -45,6 +45,12 @@ namespace NOUS_challenge_app.DAL.Repositories
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             AppDbContext.Entry(entity).State = EntityState.Modified;
+            foreach (var entry in AppDbContext.ChangeTracker.Entries()
+                         .Where(e => e.State == EntityState.Modified))
+            {
+                entry.Property("CreatedAt").IsModified = false;
+            }
+
             await AppDbContext.SaveChangesAsync();
             return entity;
         }

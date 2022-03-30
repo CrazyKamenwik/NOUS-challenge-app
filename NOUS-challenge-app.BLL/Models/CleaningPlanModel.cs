@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NOUS_challenge_app.BLL.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NOUS_challenge_app.BLL.Interfaces;
 
 namespace NOUS_challenge_app.BLL.Models
 {
@@ -16,8 +12,7 @@ namespace NOUS_challenge_app.BLL.Models
         [MaxLength(256, ErrorMessage = "Title length must be less than 257 characters long.")]
         public string Title { get; set; }
 
-        [Required]
-        public int CustomerId { get; set; }
+        [Required] public int CustomerId { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

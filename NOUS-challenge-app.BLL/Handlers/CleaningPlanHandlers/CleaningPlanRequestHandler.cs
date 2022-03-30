@@ -47,7 +47,7 @@ namespace NOUS_challenge_app.BLL.Handlers.CleaningPlanHandlers
                 Id = request.Id,
                 Title = request.Title,
                 Description = request.Description,
-                
+                CreatedAt = request.CreatedAt
             };
             var cleaningPlanEntity = await _repository.UpdateAsync(cleaningPlan);
             var cleaningPlanModel = _mapper.Map<CleaningPlanModel>(cleaningPlanEntity);
