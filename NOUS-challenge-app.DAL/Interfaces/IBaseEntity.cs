@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace NOUS_challenge_app.DAL.Interfaces
 {
-    public class IBaseEntity
+    public interface IBaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
+        public int CustomerId { get; set; }
     }
 }
