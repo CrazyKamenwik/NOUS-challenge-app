@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using NOUS_challenge_app.DAL.Entities;
 using NOUS_challenge_app.DAL.Interfaces;
 using NOUS_challenge_app.DAL.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,37 +12,97 @@ namespace NOUS_challenge_app.DAL.Tests
     {
         public GenericRepositoryTest()
         {
-            var cleaningPlans = new List<CleaningPlanEntity>()
-            {
-                new CleaningPlanEntity() { Id = new Guid("b"), CreatedAt = DateTime.Now, CustomerId = 1,
-                    Description = "ak47", Title = "Clean" },
-                new CleaningPlanEntity(){Id = new Guid("c"), CreatedAt = DateTime.Now, CustomerId = 2,
-                    Description = "d", Title = "f"}
-            };
-
-            Mock<IGenericRepository<CleaningPlanEntity>> mockRepo = new Mock<IGenericRepository<CleaningPlanEntity>>();
-            mockRepo.Setup(r => r.GetAllAsync()).Returns(cleaningPlans);
         }
 
+        [Fact]
+        public async Task CreateAsync_ReturnsCreatedCleaningPlan()
+        {
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            CleaningPlanEntity cleaningPlan = new CleaningPlanEntity()
+            {
+                CreatedAt = DateTime.Now,
+                CustomerId = 322,
+                Description = "Clean cumzone",
+                Id = Guid.NewGuid(),
+                Title = "Cumzone cleaning"
+            };
+
+            CleaningPlanEntity savedPlan = await sut.CreateAsync(cleaningPlan);
+            Assert.NotNull(savedPlan);
+        }
 
         [Fact]
-        public void GetByIdAsync_Returns_Product()
+        public async Task GetAllAsync_ReturnsListOfCleaningPlans()
         {
-            var repository = new Mock<IGenericRepository<CleaningPlanEntity>>();
-            //Setup DbContext and DbSet mock  
-            repository.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns((Guid g) => ;
-            var dbContextMock = new Mock<AppDbContext>();
-            var dbSetMock = new Mock<DbSet<CleaningPlanEntity>>();
-            dbSetMock.Setup(s => s.FindAsync(It.IsAny<Guid>())).Returns(ValueTask.FromResult(new CleaningPlanEntity()));
-            dbContextMock.Setup(s => s.Set<CleaningPlanEntity>()).Returns(dbSetMock.Object);
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            await sut.GetAllAsync();
+        }
 
-            //Execute method of SUT (ProductsRepository)  
-            var productRepository = new GenericRepository<CleaningPlanEntity>(dbContextMock.Object);
-            var product = productRepository.GetByIdAsync(Guid.NewGuid()).Result;
+        [Fact]
+        public async Task DeleteAsync_ReturnsTask()
+        {
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            await sut.DeleteAsync(Guid.NewGuid());
+        }
 
-            //Assert  
-            Assert.NotNull(product);
-            Assert.IsAssignableFrom<CleaningPlanEntity>(product);
+        [Fact]
+        public async Task GetByIdAsync_ReturnsCleaningPlan()
+        {
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            await sut.GetByIdAsync(Guid.NewGuid());
+        }
+
+        [Fact]
+        public async Task GetByCustomerIdAsync_ReturnsCleaningPlan()
+        {
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            await sut.GetByCustomerIdAsync(int.MinValue);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ReturnsUpdatedCleaningPlan()
+        {
+            IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
+            var id = new Guid("f7c27853-2f45-4283-bc1c-86a9dde341b1");
+            CleaningPlanEntity expected = new CleaningPlanEntity()
+            {
+                CreatedAt = DateTime.Now,
+                CustomerId = 322,
+                Description = "Clean cumzone",
+                Id = id,
+                Title = "Cumzone cleaning"
+            };
+            var plan = await sut.GetByIdAsync(id);
+            plan.Description = expected.Description;
+            plan.CustomerId = expected.CustomerId;
+            plan.Title = expected.Title;
+            await sut.UpdateAsync(plan);
+            Assert.Equal(expected.Description, plan.Description);
+            Assert.Equal(expected.CustomerId, plan.CustomerId);
+            Assert.Equal(expected.Title, plan.Title);
+        }
+
+        private IGenericRepository<CleaningPlanEntity> GetInMemoryGenericRepository()
+        {
+            DbContextOptions<AppDbContext> options;
+            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            builder.UseInMemoryDatabase("CleaningPlan");
+            options = builder.Options;
+            AppDbContext dbContext = new AppDbContext(options);
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+
+            var cleaningPlan = new CleaningPlanEntity()
+            {
+                CreatedAt = DateTime.Now,
+                CustomerId = 1,
+                Description = "Lele",
+                Id = new Guid("f7c27853-2f45-4283-bc1c-86a9dde341b1"),
+                Title = "heheHaha"
+            };
+            dbContext.Add(cleaningPlan);
+            dbContext.SaveChangesAsync();
+            return new GenericRepository<CleaningPlanEntity>(dbContext);
         }
 
     }
