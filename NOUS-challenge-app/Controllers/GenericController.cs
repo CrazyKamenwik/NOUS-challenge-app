@@ -44,7 +44,7 @@ namespace NOUS_challenge_app.Controllers
             {
                 throw new Exception(
                     $"\nUnfortunately, something went wrong." +
-                    $" There is no item with {id} ID.");
+                    $" There is no item with given ID.");
             }
 
             return Ok(result);

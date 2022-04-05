@@ -1,27 +1,27 @@
 ﻿using AutoMapper;
-using MediatR;
 using Moq;
 using NOUS_challenge_app.BLL.Handlers.GenericHandlers;
 using NOUS_challenge_app.BLL.Mapper;
 using NOUS_challenge_app.BLL.Models;
-using NOUS_challenge_app.BLL.Requests.Generics;
+using NOUS_challenge_app.BLL.Queries;
 using NOUS_challenge_app.BLL.Tests.Mocks;
 using NOUS_challenge_app.DAL.Entities;
 using NOUS_challenge_app.DAL.Interfaces;
 using Shouldly;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NOUS_challenge_app.BLL.Tests
+namespace NOUS_challenge_app.BLL.Tests.GenericHandlersTests
 {
-    public class GenericDeleteRequestHandlerTest
+    public class GenericGetAllQueryHandlerTest
     {
         private readonly IMapper _mapper;
         private readonly Mock<IGenericRepository<CleaningPlanEntity>> _mockRepo;
 
-        public GenericDeleteRequestHandlerTest()
+        public GenericGetAllQueryHandlerTest()
         {
             _mockRepo = MockGenericRepository.GetCleaningPlanRepository();
 
@@ -34,11 +34,12 @@ namespace NOUS_challenge_app.BLL.Tests
         }
 
         [Fact]
-        public async Task Delete_ReturnsUnit()
+        public async Task GetCleaningPlanListTest()
         {
-            var handler = new GenericDeleteRequestHandler(_mockRepo.Object);
-            var result = await handler.Handle(new GenericDeleteRequest<CleaningPlanModel>(Guid.NewGuid()), CancellationToken.None);
-            result.ShouldBe(Unit.Value);
+            var handler = new GenericGetAllQueryHandler(_mapper, _mockRepo.Object);
+            var result = await handler.Handle(new GenericGetAllQuery<CleaningPlanModel>(), CancellationToken.None);
+            result.ShouldBeOfType<List<CleaningPlanModel>>();
+            result.Count().ShouldBe(2);
         }
     }
 }

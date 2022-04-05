@@ -51,9 +51,9 @@ namespace NOUS_challenge_app.API.Tests
             var result = await sut.GetAsync(It.IsAny<Guid>());
 
             //Assert
-            
-            //Assert.ThrowsAny<Exception>(() => result);
-            Should.Throw<Exception>(() => result);
+
+            Assert.ThrowsAny<Exception>(() => result);
+            //Should.Throw<Exception>(() => result);
             result.ShouldBeOfType<Exception>();
         }
 

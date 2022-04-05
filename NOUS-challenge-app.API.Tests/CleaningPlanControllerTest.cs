@@ -4,7 +4,10 @@ using Moq;
 using NOUS_challenge_app.BLL.Models;
 using NOUS_challenge_app.BLL.Requests.CleaningPlan;
 using NOUS_challenge_app.Controllers;
+using NOUS_challenge_app.Mapper;
+using NOUS_challenge_app.ViewModels;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,74 +16,64 @@ namespace NOUS_challenge_app.API.Tests
     public class CleaningPlanControllerTest
     {
         private readonly Mock<IMediator> _mediatorMock;
-        private readonly Mock<IMapper> _mapperMock;
+        private readonly IMapper _mapper;
 
-        //[Fact]
-        //public async Task CreateCleaningPlan_ReturnsCreatedCleaningPlanViewModel()
-        //{
-        //    var mediator = new Mock<IMediator>();
-        //    var mapper = new Mock<IMapper>();
-        //    var model = new CleaningPlanModel()
-        //    {
-        //        CreatedAt = DateTime.Now,
-        //        CustomerId = 322,
-        //        Description = "clean",
-        //        Id = Guid.NewGuid(),
-        //        Title = "zone"
-        //    };
+        public CleaningPlanControllerTest(Mock<IMediator> mediatorMock, IMapper mapper)
+        {
+            _mediatorMock = mediatorMock;
+            _mapper = mapper;
 
-        //    await mediator.Setup(s => s.Send().Return(model);
+            var mapperConfig = new MapperConfiguration(c =>
+            {
+                c.AddProfile<MappingProfile>();
+            });
 
-        //    var sut = new CleaningPlanController(mediator.Object, mapper.Object);
-        //    //var result = await sut.CreateCleaningPlan(It.IsAny<>());
+            _mapper = mapperConfig.CreateMapper();
+        }
 
+        [Fact]
+        public async Task CreateCleaningPlan_ReturnsCreatedCleaningPlanViewModel()
+        {
+            var model = new CleaningPlanModel()
+            {
+                CreatedAt = DateTime.Now,
+                CustomerId = 322,
+                Description = "clean",
+                Id = Guid.NewGuid(),
+                Title = "zone"
+            };
 
-        //    Assert.IsType<HttpNotFoundResult>(result);
-        //}
+            _mediatorMock.Setup(s => s.Send(It.IsAny<CleaningPlanCreateRequest>(), CancellationToken.None))
+                .Returns(Task.FromResult(model));
 
+            var sut = new CleaningPlanController(_mediatorMock.Object, _mapper);
+            var result = await sut.CreateCleaningPlan(It.IsAny<CleaningPlanModel>());
+            var viewModel = _mapper.Map<CleaningPlanViewModel>(result);
 
-        //[Fact]
-        //public async void CleaningPlanCreate_SendCreateCleaningPlanRequest()
-        //{
-        //    var id = Guid.NewGuid();
-        //    var cleaningPlan = new CleaningPlanModel()
-        //    {
-        //        CreatedAt = DateTime.Now, 
-        //        CustomerId = 322, 
-        //        Description = "Clean the semen",
-        //        Id = id,
-        //        Title = "The semen cleaning"
-        //    };
-        //    var mediator = new Mock<IMediator>();
-        //    //var sut = new CleaningPlanController(_mediatorMock.Object, _mapperMock.Object);
-
-        //    //await sut.CreateCleaningPlan(cleaningPlan);
-
-        //    mediator.Setup(x=>x.Send(It.IsAny<CleaningPlanModel>())).Returns(cleaningPlan);
-        //}
+            Assert.IsType<CleaningPlanModel>(viewModel);
+        }
 
 
+        [Fact]
+        public async Task UpdateCleaningPlan_ReturnsUpdatedCleaningPlan()
+        {
+            var model = new CleaningPlanModel()
+            {
+                CreatedAt = DateTime.Now,
+                CustomerId = 228,
+                Description = "djdj",
+                Id = Guid.NewGuid(),
+                Title = "ooo"
+            };
 
+            _mediatorMock.Setup(s => s.Send(It.IsAny<CleaningPlanUpdateRequest>(), CancellationToken.None))
+                .Returns(Task.FromResult(model));
 
-        //[Theory]
-        //[InlineData(new CleaningPlanModel()
-        //    {CustomerId = 1, Description = "hehe", Title = "haha"})]
-        //public async Task SendCreateRequest_ReturnsCreatedViewModel(CleaningPlanModel model)
-        //{
-        //    var fakeMediator = new Mock<IMediator>();
-        //    var fakeResult = new CleaningPlanViewModel()
-        //    {
-        //        CustomerId = 322,
-        //        Title = "clean",
-        //        CreatedAt = DateTime.Now,
-        //        Description = "Clean",
-        //        Id = Guid.NewGuid()
-        //    };
+            var sut = new CleaningPlanController(_mediatorMock.Object, _mapper);
+            var result = await sut.CreateCleaningPlan(It.IsAny<CleaningPlanModel>());
+            var viewModel = _mapper.Map<CleaningPlanViewModel>(result);
 
-        //    //var mediator = new Mediator(fakeMediator.Object);
-        //    mediatorMock
-        //        .Setup(s =>
-        //            s.Send(It.IsAny<CleaningPlanCreateRequest>(CleaningPlanModel)).Result());
-        //}
+            Assert.IsType<CleaningPlanModel>(viewModel);
+        }
     }
 }

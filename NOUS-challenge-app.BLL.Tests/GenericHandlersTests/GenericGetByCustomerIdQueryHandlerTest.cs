@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NOUS_challenge_app.BLL.Tests
+namespace NOUS_challenge_app.BLL.Tests.GenericHandlersTests
 {
     public class GenericGetByCustomerIdQueryHandlerTest
     {

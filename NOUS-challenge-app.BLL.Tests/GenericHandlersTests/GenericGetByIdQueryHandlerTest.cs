@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace NOUS_challenge_app.BLL.Tests
+namespace NOUS_challenge_app.BLL.Tests.GenericHandlersTests
 {
     public class GenericGetByIdQueryHandlerTest
     {
@@ -37,7 +37,7 @@ namespace NOUS_challenge_app.BLL.Tests
         {
             var handler = new GenericGetByIdQueryHandler(_mapper, _mockRepo.Object);
             var result = await handler.Handle(new GenericGetByIdQuery<CleaningPlanModel>
-                (It.IsAny<Guid>()/*new Guid("bb2daac1-1bd8-420a-b009-8e8fa261c943")*/), CancellationToken.None);
+                (It.IsAny<Guid>()), CancellationToken.None);
             result.ShouldBeOfType<CleaningPlanModel>();
         }
     }
