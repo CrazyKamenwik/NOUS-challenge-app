@@ -23,7 +23,6 @@ namespace NOUS_challenge_app.Controllers
 
 
         [HttpGet]
-        //[Route("/GetAll")]
         public async Task<IActionResult> GetAllAsync()
         {
             var query = new GenericGetAllQuery<TModel>();
@@ -37,7 +36,6 @@ namespace NOUS_challenge_app.Controllers
         }
 
         [HttpGet("getById/{id:Guid}")]
-        //[Route("api/get/{id:Guid}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             var query = new GenericGetByIdQuery<TModel>(id);
@@ -46,14 +44,13 @@ namespace NOUS_challenge_app.Controllers
             {
                 throw new Exception(
                     $"\nUnfortunately, something went wrong." +
-                    $" There is no item with ({id}) ID.");
+                    $" There is no item with {id} ID.");
             }
 
             return Ok(result);
         }
 
         [HttpGet("getByCustomerId/{id:int}")]
-        //[Route("api/getByCustomerId/{id:int}")]
         public async Task<IActionResult> GetByCustomerIdAsync(int id)
         {
             var query = new GenericGetByCustomerIdQuery<TModel>(id);
@@ -69,7 +66,6 @@ namespace NOUS_challenge_app.Controllers
         }
 
         [HttpDelete]
-        //[Route("/delete/{id:Guid}")]
         public async Task<Unit> DeleteAsync(Guid id)
         {
             var command = new GenericDeleteRequest<TModel>(id);

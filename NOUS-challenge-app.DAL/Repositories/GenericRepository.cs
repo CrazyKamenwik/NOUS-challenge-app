@@ -31,8 +31,8 @@ namespace NOUS_challenge_app.DAL.Repositories
 
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            var entity = DbSet.FindAsync(id);
-            return await entity;
+            var entity = await DbSet.FindAsync(id);
+            return entity;
         }
 
         public async Task<TEntity> CreateAsync(TEntity entity)
