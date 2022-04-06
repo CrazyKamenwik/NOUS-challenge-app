@@ -12,12 +12,12 @@ namespace NOUS_challenge_app.API.Tests
 {
     public class GenericControllerTest
     {
+        private readonly Mock<IMediator> _mockMediator = new();
+
         [Fact]
         public async Task GetByCustomerId_ReturnsOkObjectResult_WhenCustomerHasBeenFound()
         {
-            var mediator = new Mock<IMediator>();
-
-            var sut = new GenericController<CleaningPlanModel>(mediator.Object);
+            var sut = new GenericController<CleaningPlanModel>(_mockMediator.Object);
 
             var result = await sut.GetByCustomerIdAsync(It.IsAny<int>());
 
@@ -28,9 +28,7 @@ namespace NOUS_challenge_app.API.Tests
         public async Task GetAllAsync_ReturnsOkObjectResult_WhenCleaningPlansHasBeenFound()
         {
             //Arrange
-            var mediator = new Mock<IMediator>();
-
-            var sut = new GenericController<CleaningPlanModel>(mediator.Object);
+            var sut = new GenericController<CleaningPlanModel>(_mockMediator.Object);
 
             //Act
             var result = await sut.GetAllAsync();
@@ -43,9 +41,7 @@ namespace NOUS_challenge_app.API.Tests
         public async Task GetAsync_ReturnsOkObjectResult_WhenCleaningPlanHasBeenFound()
         {
             //Arrange
-            var mediator = new Mock<IMediator>();
-
-            var sut = new GenericController<CleaningPlanModel>(mediator.Object);
+            var sut = new GenericController<CleaningPlanModel>(_mockMediator.Object);
 
             //Act
             var result = await sut.GetAsync(It.IsAny<Guid>());
@@ -61,9 +57,7 @@ namespace NOUS_challenge_app.API.Tests
         public async Task DeleteAsync_ReturnsUnit_WhenCleaningPlanHasBeenDeleted()
         {
             //Arrange
-            var mediator = new Mock<IMediator>();
-
-            var sut = new GenericController<CleaningPlanModel>(mediator.Object);
+            var sut = new GenericController<CleaningPlanModel>(_mockMediator.Object);
 
             //Act
             var result = await sut.DeleteAsync(It.IsAny<Guid>());

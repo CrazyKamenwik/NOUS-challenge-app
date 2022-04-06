@@ -18,7 +18,7 @@ namespace NOUS_challenge_app.DAL.Tests
         public async Task CreateAsync_ReturnsCreatedCleaningPlan()
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
-            CleaningPlanEntity cleaningPlan = new CleaningPlanEntity()
+            CleaningPlanEntity cleaningPlan = new()
             {
                 CreatedAt = DateTime.Now,
                 CustomerId = 322,
@@ -36,6 +36,7 @@ namespace NOUS_challenge_app.DAL.Tests
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
             await sut.GetAllAsync();
+            Assert.NotNull(sut);
         }
 
         [Fact]
@@ -43,6 +44,7 @@ namespace NOUS_challenge_app.DAL.Tests
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
             await sut.DeleteAsync(Guid.NewGuid());
+            Assert.NotNull(sut);
         }
 
         [Fact]
@@ -50,6 +52,7 @@ namespace NOUS_challenge_app.DAL.Tests
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
             await sut.GetByIdAsync(Guid.NewGuid());
+            Assert.NotNull(sut);
         }
 
         [Fact]
@@ -57,6 +60,7 @@ namespace NOUS_challenge_app.DAL.Tests
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
             await sut.GetByCustomerIdAsync(int.MinValue);
+            Assert.NotNull(sut);
         }
 
         [Fact]
@@ -64,7 +68,7 @@ namespace NOUS_challenge_app.DAL.Tests
         {
             IGenericRepository<CleaningPlanEntity> sut = GetInMemoryGenericRepository();
             var id = new Guid("f7c27853-2f45-4283-bc1c-86a9dde341b1");
-            CleaningPlanEntity expected = new CleaningPlanEntity()
+            CleaningPlanEntity expected = new()
             {
                 CreatedAt = DateTime.Now,
                 CustomerId = 322,
@@ -88,7 +92,7 @@ namespace NOUS_challenge_app.DAL.Tests
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             builder.UseInMemoryDatabase("CleaningPlan");
             options = builder.Options;
-            AppDbContext dbContext = new AppDbContext(options);
+            AppDbContext dbContext = new(options);
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 
