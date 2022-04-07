@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NOUS_challenge_app.DAL.Entities;
-using System;
-using System.Linq;
 
 namespace NOUS_challenge_app.DAL
 {

@@ -18,5 +18,6 @@ namespace NOUS_challenge_app.BLL.Models
 
         [MaxLength(512, ErrorMessage = "Description length must be less than 513 characters long.")]
         public string Description { get; set; }
+        public object Count { get; set; }
     }
 }
