@@ -36,8 +36,8 @@ namespace NOUS_challenge_app.BLL.Tests.GenericHandlersTests
         public async Task GetById_ReturnsCleaningPlanModel()
         {
             var handler = new GenericGetByIdQueryHandler(_mapper, _mockRepo.Object);
-            var result = await handler.Handle(new GenericGetByIdQuery<CleaningPlanModel>
-                (It.IsAny<Guid>()), CancellationToken.None);
+            var result = await handler.Handle(new GenericGetByIdQuery<CleaningPlanModel>(Guid.Empty),
+                CancellationToken.None);
             result.ShouldBeOfType<CleaningPlanModel>();
         }
     }

@@ -17,19 +17,15 @@ namespace NOUS_challenge_app.BLL.Tests.CleaningPlanHandlerTest
 {
     public class CleaningPlanRequestHandlerTest
     {
-        private readonly IMapper _mapper;
+        private readonly Mock<IMapper> _mapper = new();
         private readonly Mock<IGenericRepository<CleaningPlanEntity>> _mockRepo;
 
         public CleaningPlanRequestHandlerTest()
         {
             _mockRepo = MockGenericRepository.GetCleaningPlanRepository();
 
-            var mapperConfig = new MapperConfiguration(c =>
-            {
-                c.AddProfile<MappingProfile>();
-            });
-
-            _mapper = mapperConfig.CreateMapper();
+            _mapper.Setup(m => m.Map<CleaningPlanModel>(It.IsAny<CleaningPlanEntity>()))
+                            .Returns(new CleaningPlanModel());
         }
 
         [Fact]
@@ -43,7 +39,7 @@ namespace NOUS_challenge_app.BLL.Tests.CleaningPlanHandlerTest
                 Id = Guid.NewGuid(),
                 Title = "title"
             };
-            var handler = new CleaningPlanRequestHandler(_mockRepo.Object, _mapper);
+            var handler = new CleaningPlanRequestHandler(_mockRepo.Object, _mapper.Object);
             var result = await handler.Handle(new CleaningPlanCreateRequest(model), CancellationToken.None);
             result.ShouldBeOfType<CleaningPlanModel>();
         }
@@ -60,7 +56,7 @@ namespace NOUS_challenge_app.BLL.Tests.CleaningPlanHandlerTest
                 Id = Guid.Empty,
                 Title = "www"
             };
-            var handler = new CleaningPlanRequestHandler(_mockRepo.Object, _mapper);
+            var handler = new CleaningPlanRequestHandler(_mockRepo.Object, _mapper.Object);
             var result = await handler.Handle(new CleaningPlanUpdateRequest(model), CancellationToken.None);
             result.ShouldBeOfType<CleaningPlanModel>();
         }
