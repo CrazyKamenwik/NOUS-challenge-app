@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
 using NOUS_challenge_app.BLL.Handlers.GenericHandlers;
-using NOUS_challenge_app.BLL.Mapper;
 using NOUS_challenge_app.BLL.Models;
 using NOUS_challenge_app.BLL.Queries;
 using NOUS_challenge_app.BLL.Tests.Mocks;
@@ -17,25 +16,17 @@ namespace NOUS_challenge_app.BLL.Tests.GenericHandlersTests
 {
     public class GenericGetByIdQueryHandlerTest
     {
-        private readonly IMapper _mapper;
-        private readonly Mock<IGenericRepository<CleaningPlanEntity>> _mockRepo;
+        private readonly Mock<IMapper> _mapperMock = new();
+        private readonly Mock<IGenericRepository<CleaningPlanEntity>> _repoMock
+            = MockGenericRepository.GetCleaningPlanRepository();
 
-        public GenericGetByIdQueryHandlerTest()
-        {
-            _mockRepo = MockGenericRepository.GetCleaningPlanRepository();
-
-            var mapperConfig = new MapperConfiguration(c =>
-            {
-                c.AddProfile<MappingProfile>();
-            });
-
-            _mapper = mapperConfig.CreateMapper();
-        }
 
         [Fact]
         public async Task GetById_ReturnsCleaningPlanModel()
         {
-            var handler = new GenericGetByIdQueryHandler(_mapper, _mockRepo.Object);
+            _mapperMock.Setup(m => m.Map<CleaningPlanModel>(It.IsAny<CleaningPlanEntity>()))
+                .Returns(new CleaningPlanModel());
+            var handler = new GenericGetByIdQueryHandler(_mapperMock.Object, _repoMock.Object);
             var result = await handler.Handle(new GenericGetByIdQuery<CleaningPlanModel>(Guid.Empty),
                 CancellationToken.None);
             result.ShouldBeOfType<CleaningPlanModel>();

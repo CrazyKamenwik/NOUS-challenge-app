@@ -38,19 +38,14 @@ namespace NOUS_challenge_app.API.Tests
         }
 
         [Fact]
-        public async Task GetAsync_ReturnsOkObjectResult_WhenCleaningPlanHasBeenFound()
+        public async Task GetAsync_ReturnsException_WhenCleaningPlanHasNotBeenFound()
         {
             //Arrange
             var sut = new GenericController<CleaningPlanModel>(_mockMediator.Object);
 
-            //Act
-            var result = await sut.GetAsync(It.IsAny<Guid>());
-
             //Assert
 
-            Assert.ThrowsAny<Exception>(() => result);
-            //Should.Throw<Exception>(() => result);
-            result.ShouldBeOfType<Exception>();
+            Assert.ThrowsAny<Exception>(() => sut.GetAsync(It.IsAny<Guid>()).Result);
         }
 
         [Fact]
